@@ -79,12 +79,15 @@ limitations under the License.
     <shiro.version>1.2.1</shiro.version>
     <slf4j.version>1.6.1</slf4j.version>
     <solr.version>4.8.0</solr.version>
-    <solr.sentry.handlers.version>4.4.0-cdh5.2.0-SNAPSHOT</solr.sentry.handlers.version>
+<!--    <solr.sentry.handlers.version>4.4.0-cdh5.2.0-SNAPSHOT</solr.sentry.handlers.version> -->
     <zookeeper.version>3.4.5-cdh5.1.0-SNAPSHOT</zookeeper.version>
     <pig.version>0.12.0-cdh5.1.0-SNAPSHOT</pig.version>
     <jackson.version>1.8.8</jackson.version>
     <metrics.version>3.1.0</metrics.version>
     <jettyVersion>7.6.16.v20140903</jettyVersion>
+    <easymock.version>3.0</easymock.version>
+    <objenesis.version>1.2</objenesis.version>
+    <cglib.version>2.2</cglib.version>
   </properties>
 
   <dependencyManagement>
@@ -215,19 +218,28 @@ limitations under the License.
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.apache.sentry</groupId>
+        <artifactId>solr-sentry-handlers</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.solr</groupId>
         <artifactId>solr-test-framework</artifactId>
         <version>${solr.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.solr</groupId>
-        <artifactId>solr-sentry-handlers</artifactId>
-        <version>${solr.sentry.handlers.version}</version>
-        <scope>test</scope>
+        <artifactId>solr-solrj</artifactId>
+        <version>${solr.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.solr</groupId>
-        <artifactId>solr-solrj</artifactId>
+        <artifactId>solr-core</artifactId>
+        <version>${solr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.solr</groupId>
+        <artifactId>solr-test-framework</artifactId>
         <version>${solr.version}</version>
       </dependency>
       <dependency>
@@ -420,6 +432,21 @@ limitations under the License.
         <artifactId>pig</artifactId>
         <version>${pig.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.easymock</groupId>
+        <artifactId>easymock</artifactId>
+        <version>${easymock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.objenesis</groupId>
+        <artifactId>objenesis</artifactId>
+        <version>${objenesis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cglib</groupId>
+        <artifactId>cglib-nodep</artifactId>
+        <version>${cglib.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -430,6 +457,7 @@ limitations under the License.
     <module>sentry-policy</module>
     <module>sentry-tests</module>
     <module>sentry-hdfs</module>
+    <module>sentry-solr</module>
     <module>sentry-dist</module>
   </modules>
 
@@ -583,6 +611,7 @@ limitations under the License.
                   <exclude>**.patch</exclude>
                   <!-- Exclude generated solr config files -->
                   <exclude>**/solr/collection1/conf/**</exclude>
+                  <exclude>**/empty-file-main-lib.txt</exclude>
                   <!-- Exclude generated thrift files -->
                   <exclude>**/gen/**</exclude>
                   <!-- README and test data with exact format -->
